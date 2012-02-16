@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE jupgrade>
+<jupgrade>
+  <name>Phoca Gallery</name>
+  <!-- The tables to copy to the new site. -->
+  <!-- For Joomla 1.7 and 2.5 there are new files/packages! -->
+  <tables>
+    <table>phocagallery</table>
+    <table>phocagallery_categories</table>
+    <table>phocagallery_comments</table>
+    <table>phocagallery_img_comments</table>
+    <table>phocagallery_img_votes</table>
+    <table>phocagallery_img_votes_statistics</table>
+    <table>phocagallery_user</table>
+    <table>phocagallery_tags</table>
+    <table>phocagallery_votes</table>
+    <table>phocagallery_votes_statistics</table>
+  </tables>
+  <folders>
+    <folder>administrator/components/com_phocagallery</folder>
+
+    <!--
+    <folder>components/com_phocagallery</folder>
+    <folder>plugins/editors-xtd/phocagallery</folder>
+    -->
+  </folders>
+  <!--
+  <files>
+    <file>plugins/content/phocagallery.php</file>
+    <file>plugins/content/phocagallery.xml</file>
+    <file>plugins/editors-xtd/phocagallery.php</file>
+    <file>plugins/editors-xtd/phocagallery.xml</file>
+  </files>
+  -->
+</jupgrade>
