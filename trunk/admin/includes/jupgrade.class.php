@@ -115,6 +115,7 @@ class jUpgrade
 		jimport('joomla.updater.update');
 
 		// File and folder management
+		jimport('joomla.filesystem.file');
 		jimport('joomla.filesystem.folder');
 
 		// Other stuff

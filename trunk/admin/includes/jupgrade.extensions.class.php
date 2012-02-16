@@ -366,6 +366,10 @@ class jUpgradeExtensions extends jUpgrade
 			$this->ready = $this->migrateExtensionFolders();
 			if ($this->ready)
 			{
+				$this->ready = $this->migrateExtensionFiles();
+			}
+			if ($this->ready)
+			{
 				$this->ready = $this->migrateExtensionTables();
 			}
 			if ($this->ready)
@@ -501,6 +505,35 @@ class jUpgradeExtensions extends jUpgrade
 	}
 
 	/**
+	 * Migrate the Files.
+	 *
+	 * @return	boolean
+	 * @since	1.1.0
+	 */
+	protected function migrateExtensionFiles()
+	{
+		if (!isset($this->state->files))
+		{
+			$this->state->files = $this->getCopyFiles();
+		}
+		while(($value = array_shift($this->state->files)) !== null) {
+			$this->output("{$this->name} {$value}");
+			$src = JPATH_ROOT.DS.$value;
+			$dest = JPATH_SITE.DS.$value;
+			
+	
+			if (JFile::exists($src)) {
+				JFile::copy($src, $dest);
+			}
+
+			if ($this->checkTimeout()) {
+				break;
+			}
+		}
+		return empty($this->state->files);
+	}
+
+	/**
 	 * Migrate custom information.
 	 *
 	 * @return	boolean Ready
@@ -550,7 +583,7 @@ class jUpgradeExtensions extends jUpgrade
 	/**
 	 * Get folders to be migrated.
 	 *
-	 * @return	array	List of tables without prefix
+	 * @return	array	List of folders
 	 * @since	1.1.0
 	 */
 	protected function getCopyFolders() {
@@ -558,6 +591,21 @@ class jUpgradeExtensions extends jUpgrade
 		$results = array();
 		foreach ($folders as $folder) {
 			$results[] = (string) $folder;
+		}
+		return $results;
+	}
+
+	/**
+	 * Get files to be migrated.
+	 *
+	 * @return	array	List of files
+	 * @since	1.1.0
+	 */
+	protected function getCopyFiles() {
+		$files = !empty($this->xml->files->file) ? $this->xml->files->file : array();
+		$results = array();
+		foreach ($files as $file) {
+			$results[] = (string) $file;
 		}
 		return $results;
 	}
